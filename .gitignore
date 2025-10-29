@@ -69,6 +69,18 @@ ipython_config.py
 
 # Virtual Environment
 venv/
+.venv/
+ENV/
+env/
+.virtualenv/
+
+# Web Interface specific
+uploads/
+exports/
+backups/
+static/uploads/
+static/exports/
+venv/
 ENV/
 env/
 .venv
