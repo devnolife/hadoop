@@ -1,0 +1,12 @@
+# Python Requirements untuk Hadoop Operations
+
+# Database Connectors
+mysql-connector-python>=8.0.0
+psycopg2-binary>=2.9.0
+
+# Optional: Untuk bekerja dengan data
+pandas>=1.5.0
+numpy>=1.24.0
+
+# Optional: Untuk API
+requests>=2.28.0
