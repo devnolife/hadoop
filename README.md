@@ -9,10 +9,34 @@
 - 📊 Data Preview - View data dalam modal window
 - 📥 CSV Export - One-click export tables
 - 💻 SQL Query Executor - Execute custom queries
+- 📚 **Hadoop Documentation** - Complete setup & commands guide in web
+  - Single Node Setup
+  - Cluster Configuration
+  - Basic HDFS Commands
+  - Data Operations (Upload/Download)
+  - Database to HDFS Migration
 
 ## ⚡ Quick Start
 
-### Cara Tercepat
+### 🚀 Cara Tercepat (With Sample Data)
+
+**Windows:**
+```cmd
+setup-with-data.bat
+```
+
+**Linux/Mac:**
+```bash
+chmod +x setup-with-data.sh
+./setup-with-data.sh
+```
+
+Script ini akan:
+- Install dependencies
+- Create sample database (100 products, 50 customers, 200 orders)
+- Setup siap pakai dalam 2 menit!
+
+### 🌐 Start Web Interface
 
 **Windows:**
 ```cmd

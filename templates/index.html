@@ -129,6 +129,42 @@
         .preview-modal .modal-dialog {
             max-width: 90%;
         }
+
+        .code-block {
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+
+        .code-block pre {
+            margin: 0;
+            white-space: pre;
+        }
+
+        .nav-tabs .nav-link {
+            color: #666;
+        }
+
+        .nav-tabs .nav-link.active {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+        }
+
+        .tab-content {
+            padding: 20px 0;
+        }
+
+        .tab-content h6 {
+            color: var(--secondary-color);
+            margin-top: 20px;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .tab-content table {
+            font-size: 0.9rem;
+        }
     </style>
 </head>
 <body>
@@ -182,25 +218,31 @@
             <div class="card-body">
                 <div class="connection-form">
                     <div class="row">
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <div class="mb-3">
                                 <label class="form-label">Host</label>
                                 <input type="text" class="form-control" id="mysqlHost" value="localhost">
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
+                            <div class="mb-3">
+                                <label class="form-label">Port</label>
+                                <input type="number" class="form-control" id="mysqlPort" value="3306">
+                            </div>
+                        </div>
+                        <div class="col-md-2">
                             <div class="mb-3">
                                 <label class="form-label">User</label>
                                 <input type="text" class="form-control" id="mysqlUser" value="root">
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <div class="mb-3">
                                 <label class="form-label">Password</label>
                                 <input type="password" class="form-control" id="mysqlPassword">
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <div class="mb-3">
                                 <label class="form-label">Database</label>
                                 <input type="text" class="form-control" id="mysqlDatabase" placeholder="Optional">
@@ -259,6 +301,135 @@
                     <i class="bi bi-play-fill"></i> Execute Query
                 </button>
                 <div id="queryResults" class="mt-3"></div>
+            </div>
+        </div>
+
+        <!-- HDFS Operations Card -->
+        <div class="card" id="hdfsOpsCard" style="display: none;">
+            <div class="card-header">
+                <i class="bi bi-hdd-rack"></i> 🚀 HDFS Operations - Direct Actions
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <!-- Upload to HDFS -->
+                    <div class="col-md-6 mb-4">
+                        <div class="card h-100">
+                            <div class="card-header bg-primary text-white">
+                                <i class="bi bi-cloud-upload"></i> Upload File to HDFS
+                            </div>
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <label class="form-label">Select CSV File</label>
+                                    <select class="form-select" id="uploadCsvFile">
+                                        <option value="">-- Select File --</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">HDFS Destination Path</label>
+                                    <input type="text" class="form-control" id="hdfsUploadPath" 
+                                           placeholder="/user/data/myfile.csv">
+                                </div>
+                                <button class="btn btn-primary w-100" onclick="uploadToHDFS()">
+                                    <i class="bi bi-upload"></i> Upload to HDFS
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Download from HDFS -->
+                    <div class="col-md-6 mb-4">
+                        <div class="card h-100">
+                            <div class="card-header bg-success text-white">
+                                <i class="bi bi-cloud-download"></i> Download from HDFS
+                            </div>
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <label class="form-label">HDFS Source Path</label>
+                                    <input type="text" class="form-control" id="hdfsDownloadPath" 
+                                           placeholder="/user/data/myfile.csv">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Local Filename</label>
+                                    <input type="text" class="form-control" id="localFilename" 
+                                           placeholder="downloaded_file.csv">
+                                </div>
+                                <button class="btn btn-success w-100" onclick="downloadFromHDFS()">
+                                    <i class="bi bi-download"></i> Download from HDFS
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Export Table to HDFS -->
+                    <div class="col-md-6 mb-4">
+                        <div class="card h-100">
+                            <div class="card-header bg-warning text-dark">
+                                <i class="bi bi-database-fill-up"></i> Export MySQL Table to HDFS
+                            </div>
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <label class="form-label">Select Table</label>
+                                    <select class="form-select" id="exportTableToHDFS">
+                                        <option value="">-- Select Table --</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">HDFS Path</label>
+                                    <input type="text" class="form-control" id="hdfsExportPath" 
+                                           placeholder="/user/data/mysql/tablename.csv">
+                                </div>
+                                <button class="btn btn-warning w-100" onclick="exportTableToHDFS()">
+                                    <i class="bi bi-arrow-up-circle"></i> Export to HDFS
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bulk Export All Tables -->
+                    <div class="col-md-6 mb-4">
+                        <div class="card h-100">
+                            <div class="card-header bg-danger text-white">
+                                <i class="bi bi-lightning"></i> Bulk Export All Tables
+                            </div>
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <label class="form-label">HDFS Base Path</label>
+                                    <input type="text" class="form-control" id="hdfsBulkPath" 
+                                           value="/user/data/mysql" placeholder="/user/data/mysql">
+                                </div>
+                                <div class="alert alert-warning small mb-3">
+                                    <i class="bi bi-exclamation-triangle"></i> This will export ALL tables to HDFS
+                                </div>
+                                <button class="btn btn-danger w-100" onclick="bulkExportToHDFS()">
+                                    <i class="bi bi-lightning-fill"></i> Export All Tables
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- HDFS Operations Results -->
+                <div id="hdfsResults" class="mt-3"></div>
+
+                <!-- List HDFS Files -->
+                <div class="card mt-4">
+                    <div class="card-header bg-info text-white">
+                        <i class="bi bi-list"></i> Browse HDFS Files
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label class="form-label">HDFS Directory Path</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="hdfsListPath" 
+                                       value="/user/data" placeholder="/user/data">
+                                <button class="btn btn-info" onclick="listHDFSFiles()">
+                                    <i class="bi bi-search"></i> Browse
+                                </button>
+                            </div>
+                        </div>
+                        <div id="hdfsFileList" class="table-responsive"></div>
+                    </div>
+                </div>
             </div>
         </div>
 

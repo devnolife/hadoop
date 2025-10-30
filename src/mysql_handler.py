@@ -14,9 +14,10 @@ from datetime import datetime
 class MySQLHandler:
     """Enhanced MySQL handler with better error handling and features"""
     
-    def __init__(self, host='localhost', user='root', password='', database=None):
+    def __init__(self, host='localhost', port=3306, user='root', password='', database=None):
         """Initialize MySQL connection"""
         self.host = host
+        self.port = port
         self.user = user
         self.password = password
         self.database = database
@@ -28,12 +29,13 @@ class MySQLHandler:
         try:
             self.connection = mysql.connector.connect(
                 host=self.host,
+                port=self.port,
                 user=self.user,
                 password=self.password,
                 database=self.database
             )
             self.cursor = self.connection.cursor(dictionary=True)
-            print(f"✅ Connected to MySQL database: {self.database or 'None'}")
+            print(f"✅ Connected to MySQL database: {self.database or 'None'} at {self.host}:{self.port}")
             return True
         except Error as e:
             print(f"❌ Error connecting to MySQL: {e}")

@@ -99,6 +99,17 @@ class HDFSOperations:
         print(f"\n=== Disk Usage: {path} ===")
         command = f"{self.hdfs_cmd} -du -h {path}"
         return self.run_command(command)
+    
+    # Wrapper methods for Flask app compatibility
+    def put_file(self, local_path, hdfs_path):
+        """Wrapper for upload_file - Upload file to HDFS"""
+        result = self.upload_file(local_path, hdfs_path)
+        return result is not None and result.returncode == 0
+    
+    def get_file(self, hdfs_path, local_path):
+        """Wrapper for download_file - Download file from HDFS"""
+        result = self.download_file(hdfs_path, local_path)
+        return result is not None and result.returncode == 0
 
 def demo_operations():
     """Demo operasi HDFS"""
