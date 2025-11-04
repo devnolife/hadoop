@@ -1,0 +1,59 @@
+# Hadoop binaries and downloads
+*.tar.gz
+hadoop-3.3.6.tar.gz
+hadoop/hadoop-3.3.6.tar.gz
+hadoop/hadoop-3.3.6/
+hadoop-*/
+
+# Java installation
+jdk-*/
+jre-*/
+*.jdk
+*.jre
+
+# Data directories
+hadoop/data/namenode/
+hadoop/data/datanode/
+hadoop/data/tmp/
+data/output/
+data/temp/
+output/
+
+# Logs
+hadoop/logs/
+logs/
+*.log
+
+# Temporary files
+*.tmp
+*.swp
+*~
+*.bak
+*.backup
+
+# Database configuration (may contain credentials)
+hadoop/config/database-config.conf
+*.conf.local
+*-credentials.*
+
+# IDE
+.vscode/
+.idea/
+*.iml
+.eclipse/
+.project
+.classpath
+.settings/
+
+# OS
+.DS_Store
+Thumbs.db
+*.pid
+
+# Git
+.git/
+
+# Old documentation (using README.md only)
+setup.md
+PROJECT_SPEC.md
+QUICK_START.md

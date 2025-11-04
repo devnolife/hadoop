@@ -1,0 +1,15 @@
+Hello Hadoop World
+This is a sample file for testing Hadoop HDFS
+Apache Hadoop is an open-source framework
+It allows for distributed processing of large datasets
+Hadoop consists of multiple components:
+- HDFS (Hadoop Distributed File System)
+- YARN (Yet Another Resource Negotiator)
+- MapReduce (Programming Model)
+- Hadoop Common (Common utilities)
+
+Big Data Processing with Hadoop
+Data Lake Architecture
+Distributed Computing
+Fault Tolerance and Reliability
+Scalability and Performance
